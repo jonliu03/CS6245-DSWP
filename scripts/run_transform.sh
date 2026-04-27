@@ -46,6 +46,8 @@ DEFAULT_SIZES=""
 case "$BENCH" in
   llist_sum|llist_compute|max_list|llist_heavy)
     DEFAULT_SIZES="10000 100000 1000000" ;;
+  llist_heavy_12|markov_chain_12)
+    DEFAULT_SIZES="10000 100000 1000000" ;;
   histogram|fib_iter)
     DEFAULT_SIZES="1000000 10000000 100000000" ;;
   *)

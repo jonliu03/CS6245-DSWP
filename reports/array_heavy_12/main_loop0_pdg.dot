@@ -1,0 +1,36 @@
+digraph "main:0" {
+  rankdir=TB;
+  node [shape=box, style="filled,rounded", fontname="monospace", fontsize=10];
+  edge [fontname="monospace", fontsize=8];
+  n7 [fillcolor="#ffd6a5", label="scc 0 | [7] store double %21, ptr %22, align 8, !tbaa !9"];
+  n6 [fillcolor="#a0c4ff", label="scc 1 | [6] %22 = getelementptr inbounds double, ptr %11, i64 %.01"];
+  n5 [fillcolor="#caffbf", label="scc 2 | [5] %21 = fmul double %20, 5.000000e-01"];
+  n4 [fillcolor="#ffadad", label="scc 3 | [4] %20 = sitofp i64 %19 to double"];
+  n3 [fillcolor="#bdb2ff", label="scc 4 | [3] %19 = add nsw i64 %.01, 1"];
+  n2 [fillcolor="#fdffb6", label="scc 5 | [2] br i1 %17, label %18, label %24"];
+  n1 [fillcolor="#9bf6ff", label="scc 6 | [1] %17 = icmp slt i64 %.01, %9"];
+  subgraph cluster_scc7 {
+    label="SCC 7 (cyclic, 2 insts)";
+    style="rounded,dashed"; color=gray50;
+    n8 [fillcolor="#ffc6ff", label="scc 7 | [8] %23 = add nsw i64 %.01, 1"];
+    n0 [fillcolor="#ffc6ff", label="scc 7 | [0] %.01 = phi i64 [ %23, %18 ], [ 0, %.preheader ]"];
+  }
+  n9 [fillcolor="#e2f0cb", label="scc 8 | [9] br label %16, !llvm.loop !11"];
+  n0 -> n8 [color="black", label="data"];
+  n0 -> n6 [color="black", label="data"];
+  n0 -> n3 [color="black", label="data"];
+  n0 -> n1 [color="black", label="data"];
+  n1 -> n2 [color="black", label="data"];
+  n2 -> n3 [color="blue", label="ctrl"];
+  n2 -> n4 [color="blue", label="ctrl"];
+  n2 -> n5 [color="blue", label="ctrl"];
+  n2 -> n6 [color="blue", label="ctrl"];
+  n2 -> n7 [color="blue", label="ctrl"];
+  n2 -> n8 [color="blue", label="ctrl"];
+  n2 -> n9 [color="blue", label="ctrl"];
+  n3 -> n4 [color="black", label="data"];
+  n4 -> n5 [color="black", label="data"];
+  n5 -> n7 [color="black", label="data"];
+  n6 -> n7 [color="black", label="data"];
+  n8 -> n0 [color="black", label="data*", style=dashed];
+}

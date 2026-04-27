@@ -6,7 +6,7 @@
 // cross-stage uses with queue dequeues / enqueues, and emits a driver
 // that spawns the stages on pthreads.
 //
-// Stage count is read from DSWP_NUM_STAGES (default 2, capped at 8).
+// Stage count is read from DSWP_NUM_STAGES (default 2, capped at 32).
 // A scaffolded 2-stage transform remains as a fallback for loops the
 // cloned path can't handle.
 //
@@ -544,11 +544,13 @@ static bool transformGenericCloned(Function &F, FunctionAnalysisManager &FAM,
   BasicBlock *ExitBlock = L->getExitBlock();
   if (!Preheader || !ExitBlock) return bail("no preheader/exit");
 
-  // Stage count from env (default 2). Capped at 8 for sanity.
+  // Stage count from env (default 2). Cap at 32 — past that the args
+  // struct + queue plumbing gets unwieldy, but practical cluster runs
+  // need >8 (e.g. PACE Gold 6226 nodes have 12 cores per socket).
   unsigned NumStages = 2;
   if (const char *S = getenv("DSWP_NUM_STAGES")) {
     int v = atoi(S);
-    if (v >= 2 && v <= 8) NumStages = (unsigned)v;
+    if (v >= 2 && v <= 32) NumStages = (unsigned)v;
   }
 
   dswp::PDGBuilder Builder(L, LI, AA, MSSA, DI, PDT);

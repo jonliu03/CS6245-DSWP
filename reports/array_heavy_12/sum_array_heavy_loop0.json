@@ -1,0 +1,22 @@
+{
+  "function": "sum_array_heavy",
+  "loop_idx": 0,
+  "pdg": {
+    "nodes": 21,
+    "edges": 38
+  },
+  "sccs": {
+    "count": 19,
+    "cyclic": 2
+  },
+  "partition": {
+    "single_stage": false,
+    "total_cost": 370,
+    "stage_0_cost": 189,
+    "stage_1_cost": 181,
+    "cross_stage_edges": 1,
+    "est_speedup_upper_bound": 1.958,
+    "stage_0": [{"scc": 7, "cost": 30, "insts": 1, "cyclic": false}, {"scc": 8, "cost": 30, "insts": 1, "cyclic": false}, {"scc": 9, "cost": 30, "insts": 1, "cyclic": false}, {"scc": 10, "cost": 30, "insts": 1, "cyclic": false}, {"scc": 11, "cost": 30, "insts": 1, "cyclic": false}, {"scc": 12, "cost": 30, "insts": 1, "cyclic": false}, {"scc": 13, "cost": 4, "insts": 1, "cyclic": false}, {"scc": 14, "cost": 1, "insts": 1, "cyclic": false}, {"scc": 15, "cost": 1, "insts": 1, "cyclic": false}, {"scc": 16, "cost": 1, "insts": 1, "cyclic": false}, {"scc": 17, "cost": 1, "insts": 2, "cyclic": true}, {"scc": 18, "cost": 1, "insts": 1, "cyclic": false}],
+    "stage_1": [{"scc": 0, "cost": 1, "insts": 2, "cyclic": true}, {"scc": 1, "cost": 30, "insts": 1, "cyclic": false}, {"scc": 2, "cost": 30, "insts": 1, "cyclic": false}, {"scc": 3, "cost": 30, "insts": 1, "cyclic": false}, {"scc": 4, "cost": 30, "insts": 1, "cyclic": false}, {"scc": 5, "cost": 30, "insts": 1, "cyclic": false}, {"scc": 6, "cost": 30, "insts": 1, "cyclic": false}]
+  }
+}

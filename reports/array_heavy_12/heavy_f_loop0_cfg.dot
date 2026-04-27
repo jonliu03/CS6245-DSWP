@@ -1,0 +1,13 @@
+digraph "heavy_f:0" {
+  rankdir=TB;
+  node [shape=box, style="filled,rounded", fontname="monospace", fontsize=10];
+  edge [fontname="monospace", fontsize=9];
+  bb0 [fillcolor="#caffbf", label="bb0 [preheader]\\n1 insts\\n(br)"];
+  bb1 [fillcolor="#a0c4ff", label="bb1 [header, exiting]\\n4 insts\\n(conditional br)"];
+  bb2 [fillcolor="#ffd6a5", label="bb2 [latch]\\n7 insts\\n(br)"];
+  bb3 [fillcolor="#ffadad", label="bb3 [exit]\\n2 insts\\n(ret)"];
+  bb0 -> bb1 [color="black"];
+  bb1 -> bb2 [color="black", label="T"];
+  bb1 -> bb3 [color="black", label="F"];
+  bb2 -> bb1 [color="darkgreen", style=dashed];
+}

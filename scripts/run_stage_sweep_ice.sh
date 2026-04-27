@@ -24,12 +24,16 @@ set -euo pipefail
 PROJ_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 BUILD_DIR="$PROJ_ROOT/build"
 RESULTS="$PROJ_ROOT/results"
-CSV="$RESULTS/stage_sweep_ice.csv"
+
+# Pick which benchmark to sweep. The 12-heavy version (default) gives the
+# headline curve; the 5-heavy llist_heavy is useful as a comparison —
+# its peak should land around N=5 since it has 5 partitionable units.
+BENCH="${BENCH:-llist_heavy_12}"
+CSV="$RESULTS/stage_sweep_ice_${BENCH}.csv"
 
 STAGES_LIST="${STAGES_LIST:-1 2 3 4 5 6 7 8 9 10 11 12}"
 N_SIZE="${N_SIZE:-1000000}"
 SAMPLES="${SAMPLES:-5}"
-BENCH="llist_heavy_12"
 
 # ─── Locate LLVM 15 ──────────────────────────────────────────────────
 if [[ -z "${LLVM_PREFIX:-}" ]]; then

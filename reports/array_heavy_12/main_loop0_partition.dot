@@ -1,0 +1,23 @@
+digraph "partition_main:0" {
+  rankdir=TB;
+  node [shape=box, style="filled,rounded", fontname="monospace", fontsize=10];
+  edge [fontname="monospace", fontsize=8];
+  scc0 [fillcolor="#ffadad", label="SCC 0\n1 insts, cost=1\nstage 1"];
+  scc1 [fillcolor="#a0c4ff", label="SCC 1\n1 insts, cost=1\nstage 0"];
+  scc2 [fillcolor="#ffadad", label="SCC 2\n1 insts, cost=3\nstage 1"];
+  scc3 [fillcolor="#ffadad", label="SCC 3\n1 insts, cost=1\nstage 1"];
+  scc4 [fillcolor="#a0c4ff", label="SCC 4\n1 insts, cost=1\nstage 0"];
+  scc5 [fillcolor="#ffadad", label="SCC 5\n1 insts, cost=1\nstage 1"];
+  scc6 [fillcolor="#a0c4ff", label="SCC 6\n1 insts, cost=1\nstage 0"];
+  scc7 [fillcolor="#a0c4ff", label="SCC 7 (cyclic)\n2 insts, cost=1\nstage 0"];
+  scc8 [fillcolor="#a0c4ff", label="SCC 8\n1 insts, cost=1\nstage 0"];
+  scc1 -> scc0 [label="d", color="darkgreen", penwidth=2];
+  scc2 -> scc0 [label="d", color="gray40"];
+  scc3 -> scc2 [label="d", color="gray40"];
+  scc4 -> scc3 [label="d", color="darkgreen", penwidth=2];
+  scc6 -> scc5 [label="d", color="darkgreen", penwidth=2];
+  scc7 -> scc4 [label="d", color="gray40"];
+  scc7 -> scc6 [label="d", color="gray40"];
+  scc7 -> scc1 [label="d", color="gray40"];
+  // total=11 s0=5 s1=6 cross=3 upper=1.83x
+}

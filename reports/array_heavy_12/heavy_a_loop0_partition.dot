@@ -1,0 +1,13 @@
+digraph "partition_heavy_a:0" {
+  rankdir=TB;
+  node [shape=box, style="filled,rounded", fontname="monospace", fontsize=10];
+  edge [fontname="monospace", fontsize=8];
+  scc0 [fillcolor="#a0c4ff", label="SCC 0 (cyclic)\n6 insts, cost=67\nstage 0"];
+  scc1 [fillcolor="#ffadad", label="SCC 1\n1 insts, cost=1\nstage 1"];
+  scc2 [fillcolor="#ffadad", label="SCC 2\n1 insts, cost=1\nstage 1"];
+  scc3 [fillcolor="#ffadad", label="SCC 3 (cyclic)\n2 insts, cost=1\nstage 1"];
+  scc4 [fillcolor="#ffadad", label="SCC 4\n1 insts, cost=1\nstage 1"];
+  scc2 -> scc1 [label="d", color="gray40"];
+  scc3 -> scc2 [label="d", color="gray40"];
+  // total=71 s0=67 s1=4 cross=0 upper=1.06x
+}
