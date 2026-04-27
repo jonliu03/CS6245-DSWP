@@ -1,0 +1,42 @@
+digraph "heavy_a:0" {
+  rankdir=TB;
+  node [shape=box, style="filled,rounded", fontname="monospace", fontsize=10];
+  edge [fontname="monospace", fontsize=8];
+  subgraph cluster_scc0 {
+    label="SCC 0 (cyclic, 6 insts)";
+    style="rounded,dashed"; color=gray50;
+    n5 [fillcolor="#ffd6a5", label="scc 0 | [5] %6 = call double @llvm.sin.f64(double %5)"];
+    n4 [fillcolor="#ffd6a5", label="scc 0 | [4] %5 = fmul double %.01, 1.000000e+00"];
+    n8 [fillcolor="#ffd6a5", label="scc 0 | [8] %9 = fadd double %6, %8"];
+    n7 [fillcolor="#ffd6a5", label="scc 0 | [7] %8 = call double @llvm.cos.f64(double %7)"];
+    n6 [fillcolor="#ffd6a5", label="scc 0 | [6] %7 = fmul double %.01, 0x3FEF0A3D70A3D70A"];
+    n0 [fillcolor="#ffd6a5", label="scc 0 | [0] %.01 = phi double [ %0, %1 ], [ %9, %4 ]"];
+  }
+  n3 [fillcolor="#a0c4ff", label="scc 1 | [3] br i1 %3, label %4, label %11"];
+  n2 [fillcolor="#caffbf", label="scc 2 | [2] %3 = icmp slt i32 %.0, 30"];
+  subgraph cluster_scc3 {
+    label="SCC 3 (cyclic, 2 insts)";
+    style="rounded,dashed"; color=gray50;
+    n9 [fillcolor="#ffadad", label="scc 3 | [9] %10 = add nsw i32 %.0, 1"];
+    n1 [fillcolor="#ffadad", label="scc 3 | [1] %.0 = phi i32 [ 0, %1 ], [ %10, %4 ]"];
+  }
+  n10 [fillcolor="#bdb2ff", label="scc 4 | [10] br label %2, !llvm.loop !5"];
+  n0 -> n6 [color="black", label="data"];
+  n0 -> n4 [color="black", label="data"];
+  n1 -> n9 [color="black", label="data"];
+  n1 -> n2 [color="black", label="data"];
+  n2 -> n3 [color="black", label="data"];
+  n3 -> n4 [color="blue", label="ctrl"];
+  n3 -> n5 [color="blue", label="ctrl"];
+  n3 -> n6 [color="blue", label="ctrl"];
+  n3 -> n7 [color="blue", label="ctrl"];
+  n3 -> n8 [color="blue", label="ctrl"];
+  n3 -> n9 [color="blue", label="ctrl"];
+  n3 -> n10 [color="blue", label="ctrl"];
+  n4 -> n5 [color="black", label="data"];
+  n5 -> n8 [color="black", label="data"];
+  n6 -> n7 [color="black", label="data"];
+  n7 -> n8 [color="black", label="data"];
+  n8 -> n0 [color="black", label="data*", style=dashed];
+  n9 -> n1 [color="black", label="data*", style=dashed];
+}

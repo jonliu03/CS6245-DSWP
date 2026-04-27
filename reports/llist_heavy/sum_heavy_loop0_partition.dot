@@ -1,0 +1,28 @@
+digraph "partition_sum_heavy:0" {
+  rankdir=TB;
+  node [shape=box, style="filled,rounded", fontname="monospace", fontsize=10];
+  edge [fontname="monospace", fontsize=8];
+  scc0 [fillcolor="#ffadad", label="SCC 0 (cyclic)\n2 insts, cost=1\nstage 1"];
+  scc1 [fillcolor="#ffadad", label="SCC 1\n1 insts, cost=30\nstage 1"];
+  scc2 [fillcolor="#ffadad", label="SCC 2\n1 insts, cost=30\nstage 1"];
+  scc3 [fillcolor="#a0c4ff", label="SCC 3\n1 insts, cost=30\nstage 0"];
+  scc4 [fillcolor="#a0c4ff", label="SCC 4\n1 insts, cost=30\nstage 0"];
+  scc5 [fillcolor="#a0c4ff", label="SCC 5\n1 insts, cost=30\nstage 0"];
+  scc6 [fillcolor="#a0c4ff", label="SCC 6\n1 insts, cost=4\nstage 0"];
+  scc7 [fillcolor="#a0c4ff", label="SCC 7\n1 insts, cost=1\nstage 0"];
+  scc8 [fillcolor="#a0c4ff", label="SCC 8\n1 insts, cost=1\nstage 0"];
+  scc9 [fillcolor="#a0c4ff", label="SCC 9\n1 insts, cost=1\nstage 0"];
+  scc10 [fillcolor="#a0c4ff", label="SCC 10 (cyclic)\n3 insts, cost=5\nstage 0"];
+  scc11 [fillcolor="#a0c4ff", label="SCC 11\n1 insts, cost=1\nstage 0"];
+  scc1 -> scc0 [label="d", color="gray40"];
+  scc2 -> scc1 [label="d", color="gray40"];
+  scc3 -> scc2 [label="d", color="darkgreen", penwidth=2];
+  scc4 -> scc3 [label="d", color="gray40"];
+  scc5 -> scc4 [label="d", color="gray40"];
+  scc6 -> scc5 [label="d", color="gray40"];
+  scc7 -> scc6 [label="d", color="gray40"];
+  scc9 -> scc8 [label="d", color="gray40"];
+  scc10 -> scc7 [label="d", color="gray40"];
+  scc10 -> scc9 [label="d", color="gray40"];
+  // total=164 s0=103 s1=61 cross=1 upper=1.59x
+}

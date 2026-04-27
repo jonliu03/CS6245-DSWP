@@ -1,0 +1,22 @@
+{
+  "function": "sum_with_compute",
+  "loop_idx": 0,
+  "pdg": {
+    "nodes": 14,
+    "edges": 25
+  },
+  "sccs": {
+    "count": 11,
+    "cyclic": 2
+  },
+  "partition": {
+    "single_stage": false,
+    "total_cost": 76,
+    "stage_0_cost": 43,
+    "stage_1_cost": 33,
+    "cross_stage_edges": 2,
+    "est_speedup_upper_bound": 1.767,
+    "stage_0": [{"scc": 2, "cost": 30, "insts": 1, "cyclic": false}, {"scc": 5, "cost": 4, "insts": 1, "cyclic": false}, {"scc": 6, "cost": 1, "insts": 1, "cyclic": false}, {"scc": 7, "cost": 1, "insts": 1, "cyclic": false}, {"scc": 8, "cost": 1, "insts": 1, "cyclic": false}, {"scc": 9, "cost": 5, "insts": 3, "cyclic": true}, {"scc": 10, "cost": 1, "insts": 1, "cyclic": false}],
+    "stage_1": [{"scc": 0, "cost": 1, "insts": 2, "cyclic": true}, {"scc": 1, "cost": 1, "insts": 1, "cyclic": false}, {"scc": 3, "cost": 30, "insts": 1, "cyclic": false}, {"scc": 4, "cost": 1, "insts": 1, "cyclic": false}]
+  }
+}

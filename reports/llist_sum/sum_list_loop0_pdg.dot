@@ -1,0 +1,39 @@
+digraph "sum_list:0" {
+  rankdir=TB;
+  node [shape=box, style="filled,rounded", fontname="monospace", fontsize=10];
+  edge [fontname="monospace", fontsize=8];
+  subgraph cluster_scc0 {
+    label="SCC 0 (cyclic, 2 insts)";
+    style="rounded,dashed"; color=gray50;
+    n6 [fillcolor="#ffd6a5", label="scc 0 | [6] %7 = add nsw i64 %.01, %6"];
+    n0 [fillcolor="#ffd6a5", label="scc 0 | [0] %.01 = phi i64 [ 0, %1 ], [ %7, %4 ]"];
+  }
+  n5 [fillcolor="#a0c4ff", label="scc 1 | [5] %6 = load i64, ptr %5, align 8, !tbaa !5"];
+  n4 [fillcolor="#caffbf", label="scc 2 | [4] %5 = getelementptr inbounds %struct.Node, ptr %.0, i32 0, i32 0"];
+  n3 [fillcolor="#ffadad", label="scc 3 | [3] br i1 %3, label %4, label %10"];
+  n2 [fillcolor="#bdb2ff", label="scc 4 | [2] %3 = icmp ne ptr %.0, null"];
+  subgraph cluster_scc5 {
+    label="SCC 5 (cyclic, 3 insts)";
+    style="rounded,dashed"; color=gray50;
+    n8 [fillcolor="#fdffb6", label="scc 5 | [8] %9 = load ptr, ptr %8, align 8, !tbaa !11"];
+    n7 [fillcolor="#fdffb6", label="scc 5 | [7] %8 = getelementptr inbounds %struct.Node, ptr %.0, i32 0, i32 1"];
+    n1 [fillcolor="#fdffb6", label="scc 5 | [1] %.0 = phi ptr [ %0, %1 ], [ %9, %4 ]"];
+  }
+  n9 [fillcolor="#9bf6ff", label="scc 6 | [9] br label %2, !llvm.loop !12"];
+  n0 -> n6 [color="black", label="data"];
+  n1 -> n7 [color="black", label="data"];
+  n1 -> n4 [color="black", label="data"];
+  n1 -> n2 [color="black", label="data"];
+  n2 -> n3 [color="black", label="data"];
+  n3 -> n4 [color="blue", label="ctrl"];
+  n3 -> n5 [color="blue", label="ctrl"];
+  n3 -> n6 [color="blue", label="ctrl"];
+  n3 -> n7 [color="blue", label="ctrl"];
+  n3 -> n8 [color="blue", label="ctrl"];
+  n3 -> n9 [color="blue", label="ctrl"];
+  n4 -> n5 [color="black", label="data"];
+  n5 -> n6 [color="black", label="data"];
+  n6 -> n0 [color="black", label="data*", style=dashed];
+  n7 -> n8 [color="black", label="data"];
+  n8 -> n1 [color="black", label="data*", style=dashed];
+}

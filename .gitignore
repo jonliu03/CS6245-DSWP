@@ -1,0 +1,13 @@
+build/
+reports/*.json
+reports/*.dot
+results/figures/*.svg
+results/figures/*.png
+results/*.csv
+*.bc
+*.bc.raw
+*.ll
+*.o
+*.dSYM/
+.DS_Store
+__pycache__/

@@ -1,0 +1,22 @@
+{
+  "function": "free_list",
+  "loop_idx": 0,
+  "pdg": {
+    "nodes": 7,
+    "edges": 12
+  },
+  "sccs": {
+    "count": 4,
+    "cyclic": 1
+  },
+  "partition": {
+    "single_stage": false,
+    "total_cost": 38,
+    "stage_0_cost": 35,
+    "stage_1_cost": 3,
+    "cross_stage_edges": 1,
+    "est_speedup_upper_bound": 1.086,
+    "stage_0": [{"scc": 2, "cost": 35, "insts": 4, "cyclic": true}],
+    "stage_1": [{"scc": 0, "cost": 1, "insts": 1, "cyclic": false}, {"scc": 1, "cost": 1, "insts": 1, "cyclic": false}, {"scc": 3, "cost": 1, "insts": 1, "cyclic": false}]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "function": "main",
+  "loop_idx": 0,
+  "pdg": {
+    "nodes": 12,
+    "edges": 20
+  },
+  "sccs": {
+    "count": 9,
+    "cyclic": 2
+  },
+  "partition": {
+    "single_stage": false,
+    "total_cost": 12,
+    "stage_0_cost": 6,
+    "stage_1_cost": 6,
+    "cross_stage_edges": 3,
+    "est_speedup_upper_bound": 2.000,
+    "stage_0": [{"scc": 3, "cost": 4, "insts": 3, "cyclic": true}, {"scc": 7, "cost": 1, "insts": 2, "cyclic": true}, {"scc": 8, "cost": 1, "insts": 1, "cyclic": false}],
+    "stage_1": [{"scc": 0, "cost": 1, "insts": 1, "cyclic": false}, {"scc": 1, "cost": 1, "insts": 1, "cyclic": false}, {"scc": 2, "cost": 1, "insts": 1, "cyclic": false}, {"scc": 4, "cost": 1, "insts": 1, "cyclic": false}, {"scc": 5, "cost": 1, "insts": 1, "cyclic": false}, {"scc": 6, "cost": 1, "insts": 1, "cyclic": false}]
+  }
+}

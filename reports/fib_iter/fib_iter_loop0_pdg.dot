@@ -1,0 +1,32 @@
+digraph "fib_iter:0" {
+  rankdir=TB;
+  node [shape=box, style="filled,rounded", fontname="monospace", fontsize=10];
+  edge [fontname="monospace", fontsize=8];
+  subgraph cluster_scc0 {
+    label="SCC 0 (cyclic, 3 insts)";
+    style="rounded,dashed"; color=gray50;
+    n5 [fillcolor="#ffd6a5", label="scc 0 | [5] %5 = add nsw i64 %.01, %.02"];
+    n1 [fillcolor="#ffd6a5", label="scc 0 | [1] %.01 = phi i64 [ 0, %1 ], [ %.02, %4 ]"];
+    n0 [fillcolor="#ffd6a5", label="scc 0 | [0] %.02 = phi i64 [ 1, %1 ], [ %5, %4 ]"];
+  }
+  n4 [fillcolor="#a0c4ff", label="scc 1 | [4] br i1 %3, label %4, label %7"];
+  n3 [fillcolor="#caffbf", label="scc 2 | [3] %3 = icmp slt i64 %.0, %0"];
+  subgraph cluster_scc3 {
+    label="SCC 3 (cyclic, 2 insts)";
+    style="rounded,dashed"; color=gray50;
+    n6 [fillcolor="#ffadad", label="scc 3 | [6] %6 = add nsw i64 %.0, 1"];
+    n2 [fillcolor="#ffadad", label="scc 3 | [2] %.0 = phi i64 [ 0, %1 ], [ %6, %4 ]"];
+  }
+  n7 [fillcolor="#bdb2ff", label="scc 4 | [7] br label %2, !llvm.loop !5"];
+  n0 -> n1 [color="black", label="data*", style=dashed];
+  n0 -> n5 [color="black", label="data"];
+  n1 -> n5 [color="black", label="data"];
+  n2 -> n6 [color="black", label="data"];
+  n2 -> n3 [color="black", label="data"];
+  n3 -> n4 [color="black", label="data"];
+  n4 -> n5 [color="blue", label="ctrl"];
+  n4 -> n6 [color="blue", label="ctrl"];
+  n4 -> n7 [color="blue", label="ctrl"];
+  n5 -> n0 [color="black", label="data*", style=dashed];
+  n6 -> n2 [color="black", label="data*", style=dashed];
+}

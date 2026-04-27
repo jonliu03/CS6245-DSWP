@@ -1,0 +1,18 @@
+digraph "partition_build_list:0" {
+  rankdir=TB;
+  node [shape=box, style="filled,rounded", fontname="monospace", fontsize=10];
+  edge [fontname="monospace", fontsize=8];
+  scc0 [fillcolor="#a0c4ff", label="SCC 0 (cyclic)\n6 insts, cost=34\nstage 0"];
+  scc1 [fillcolor="#a0c4ff", label="SCC 1\n1 insts, cost=20\nstage 0"];
+  scc2 [fillcolor="#a0c4ff", label="SCC 2\n1 insts, cost=3\nstage 0"];
+  scc3 [fillcolor="#a0c4ff", label="SCC 3\n1 insts, cost=1\nstage 0"];
+  scc4 [fillcolor="#a0c4ff", label="SCC 4\n1 insts, cost=1\nstage 0"];
+  scc5 [fillcolor="#a0c4ff", label="SCC 5 (cyclic)\n2 insts, cost=1\nstage 0"];
+  scc6 [fillcolor="#a0c4ff", label="SCC 6\n1 insts, cost=1\nstage 0"];
+  scc1 -> scc0 [label="d", color="gray40"];
+  scc2 -> scc1 [label="d", color="gray40"];
+  scc4 -> scc3 [label="d", color="gray40"];
+  scc5 -> scc2 [label="d", color="gray40"];
+  scc5 -> scc4 [label="d", color="gray40"];
+  // total=61 s0=61 s1=0 cross=0 upper=1.00x
+}

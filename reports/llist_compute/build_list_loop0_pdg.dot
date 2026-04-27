@@ -1,0 +1,51 @@
+digraph "build_list:0" {
+  rankdir=TB;
+  node [shape=box, style="filled,rounded", fontname="monospace", fontsize=10];
+  edge [fontname="monospace", fontsize=8];
+  subgraph cluster_scc0 {
+    label="SCC 0 (cyclic, 6 insts)";
+    style="rounded,dashed"; color=gray50;
+    n8 [fillcolor="#ffd6a5", label="scc 0 | [8] %8 = getelementptr inbounds %struct.Node, ptr %5, i32 0, i32 1"];
+    n7 [fillcolor="#ffd6a5", label="scc 0 | [7] store double %6, ptr %7, align 8, !tbaa !5"];
+    n6 [fillcolor="#ffd6a5", label="scc 0 | [6] %7 = getelementptr inbounds %struct.Node, ptr %5, i32 0, i32 0"];
+    n4 [fillcolor="#ffd6a5", label="scc 0 | [4] %5 = call ptr @malloc(i64 noundef 16) #6"];
+    n9 [fillcolor="#ffd6a5", label="scc 0 | [9] store ptr %.01, ptr %8, align 8, !tbaa !11"];
+    n0 [fillcolor="#ffd6a5", label="scc 0 | [0] %.01 = phi ptr [ null, %1 ], [ %5, %4 ]"];
+  }
+  n5 [fillcolor="#a0c4ff", label="scc 1 | [5] %6 = sitofp i64 %.0 to double"];
+  n3 [fillcolor="#caffbf", label="scc 2 | [3] br i1 %3, label %4, label %10"];
+  n2 [fillcolor="#ffadad", label="scc 3 | [2] %3 = icmp sgt i64 %.0, 0"];
+  subgraph cluster_scc4 {
+    label="SCC 4 (cyclic, 2 insts)";
+    style="rounded,dashed"; color=gray50;
+    n10 [fillcolor="#bdb2ff", label="scc 4 | [10] %9 = add nsw i64 %.0, -1"];
+    n1 [fillcolor="#bdb2ff", label="scc 4 | [1] %.0 = phi i64 [ %0, %1 ], [ %9, %4 ]"];
+  }
+  n11 [fillcolor="#fdffb6", label="scc 5 | [11] br label %2, !llvm.loop !12"];
+  n0 -> n9 [color="black", label="data"];
+  n1 -> n10 [color="black", label="data"];
+  n1 -> n5 [color="black", label="data"];
+  n1 -> n2 [color="black", label="data"];
+  n2 -> n3 [color="black", label="data"];
+  n3 -> n4 [color="blue", label="ctrl"];
+  n3 -> n5 [color="blue", label="ctrl"];
+  n3 -> n6 [color="blue", label="ctrl"];
+  n3 -> n7 [color="blue", label="ctrl"];
+  n3 -> n8 [color="blue", label="ctrl"];
+  n3 -> n9 [color="blue", label="ctrl"];
+  n3 -> n10 [color="blue", label="ctrl"];
+  n3 -> n11 [color="blue", label="ctrl"];
+  n4 -> n0 [color="black", label="data*", style=dashed];
+  n4 -> n6 [color="black", label="data"];
+  n4 -> n8 [color="black", label="data"];
+  n4 -> n7 [color="red", label="mem"];
+  n4 -> n9 [color="red", label="mem"];
+  n5 -> n7 [color="black", label="data"];
+  n6 -> n7 [color="black", label="data"];
+  n7 -> n4 [color="red", label="mem"];
+  n7 -> n7 [color="red", label="mem*", style=dashed];
+  n8 -> n9 [color="black", label="data"];
+  n9 -> n4 [color="red", label="mem"];
+  n9 -> n9 [color="red", label="mem*", style=dashed];
+  n10 -> n1 [color="black", label="data*", style=dashed];
+}

@@ -1,0 +1,22 @@
+{
+  "function": "build_list",
+  "loop_idx": 0,
+  "pdg": {
+    "nodes": 12,
+    "edges": 26
+  },
+  "sccs": {
+    "count": 6,
+    "cyclic": 2
+  },
+  "partition": {
+    "single_stage": false,
+    "total_cost": 39,
+    "stage_0_cost": 38,
+    "stage_1_cost": 1,
+    "cross_stage_edges": 1,
+    "est_speedup_upper_bound": 1.026,
+    "stage_0": [{"scc": 0, "cost": 34, "insts": 6, "cyclic": true}, {"scc": 1, "cost": 1, "insts": 1, "cyclic": false}, {"scc": 3, "cost": 1, "insts": 1, "cyclic": false}, {"scc": 4, "cost": 1, "insts": 2, "cyclic": true}, {"scc": 5, "cost": 1, "insts": 1, "cyclic": false}],
+    "stage_1": [{"scc": 2, "cost": 1, "insts": 1, "cyclic": false}]
+  }
+}

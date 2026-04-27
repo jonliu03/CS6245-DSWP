@@ -1,0 +1,39 @@
+digraph "main:1" {
+  rankdir=TB;
+  node [shape=box, style="filled,rounded", fontname="monospace", fontsize=10];
+  edge [fontname="monospace", fontsize=8];
+  subgraph cluster_scc0 {
+    label="SCC 0 (cyclic, 2 insts)";
+    style="rounded,dashed"; color=gray50;
+    n7 [fillcolor="#ffd6a5", label="scc 0 | [7] %32 = add nsw i64 %.01, %31"];
+    n0 [fillcolor="#ffd6a5", label="scc 0 | [0] %.01 = phi i64 [ 0, %22 ], [ %32, %28 ]"];
+  }
+  n6 [fillcolor="#a0c4ff", label="scc 1 | [6] %31 = load i64, ptr %30, align 8, !tbaa !14"];
+  n5 [fillcolor="#caffbf", label="scc 2 | [5] %30 = getelementptr inbounds [256 x i64], ptr %3, i64 0, i64 %29"];
+  n4 [fillcolor="#ffadad", label="scc 3 | [4] %29 = sext i32 %.0 to i64"];
+  n3 [fillcolor="#bdb2ff", label="scc 4 | [3] br i1 %27, label %28, label %34"];
+  n2 [fillcolor="#fdffb6", label="scc 5 | [2] %27 = icmp slt i32 %.0, 256"];
+  subgraph cluster_scc6 {
+    label="SCC 6 (cyclic, 2 insts)";
+    style="rounded,dashed"; color=gray50;
+    n8 [fillcolor="#9bf6ff", label="scc 6 | [8] %33 = add nsw i32 %.0, 1"];
+    n1 [fillcolor="#9bf6ff", label="scc 6 | [1] %.0 = phi i32 [ 0, %22 ], [ %33, %28 ]"];
+  }
+  n9 [fillcolor="#ffc6ff", label="scc 7 | [9] br label %26, !llvm.loop !16"];
+  n0 -> n7 [color="black", label="data"];
+  n1 -> n8 [color="black", label="data"];
+  n1 -> n4 [color="black", label="data"];
+  n1 -> n2 [color="black", label="data"];
+  n2 -> n3 [color="black", label="data"];
+  n3 -> n4 [color="blue", label="ctrl"];
+  n3 -> n5 [color="blue", label="ctrl"];
+  n3 -> n6 [color="blue", label="ctrl"];
+  n3 -> n7 [color="blue", label="ctrl"];
+  n3 -> n8 [color="blue", label="ctrl"];
+  n3 -> n9 [color="blue", label="ctrl"];
+  n4 -> n5 [color="black", label="data"];
+  n5 -> n6 [color="black", label="data"];
+  n6 -> n7 [color="black", label="data"];
+  n7 -> n0 [color="black", label="data*", style=dashed];
+  n8 -> n1 [color="black", label="data*", style=dashed];
+}

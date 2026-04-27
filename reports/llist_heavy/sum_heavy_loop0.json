@@ -1,0 +1,22 @@
+{
+  "function": "sum_heavy",
+  "loop_idx": 0,
+  "pdg": {
+    "nodes": 15,
+    "edges": 26
+  },
+  "sccs": {
+    "count": 12,
+    "cyclic": 2
+  },
+  "partition": {
+    "single_stage": false,
+    "total_cost": 164,
+    "stage_0_cost": 103,
+    "stage_1_cost": 61,
+    "cross_stage_edges": 1,
+    "est_speedup_upper_bound": 1.592,
+    "stage_0": [{"scc": 3, "cost": 30, "insts": 1, "cyclic": false}, {"scc": 4, "cost": 30, "insts": 1, "cyclic": false}, {"scc": 5, "cost": 30, "insts": 1, "cyclic": false}, {"scc": 6, "cost": 4, "insts": 1, "cyclic": false}, {"scc": 7, "cost": 1, "insts": 1, "cyclic": false}, {"scc": 8, "cost": 1, "insts": 1, "cyclic": false}, {"scc": 9, "cost": 1, "insts": 1, "cyclic": false}, {"scc": 10, "cost": 5, "insts": 3, "cyclic": true}, {"scc": 11, "cost": 1, "insts": 1, "cyclic": false}],
+    "stage_1": [{"scc": 0, "cost": 1, "insts": 2, "cyclic": true}, {"scc": 1, "cost": 30, "insts": 1, "cyclic": false}, {"scc": 2, "cost": 30, "insts": 1, "cyclic": false}]
+  }
+}
