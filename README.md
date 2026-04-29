@@ -7,8 +7,6 @@ The project has two passes:
 - **`DSWPAnalyzer`** — builds a per-loop PDG (register / memory / control edges, loop-carried flagged), runs Tarjan's SCC, coalesces into the SCC-DAG, and produces a 2-stage greedy partition. Emits JSON + Graphviz DOT for inspection.
 - **`DSWPTransform`** — actually rewrites IR. For most benchmarks this is `cloned::transformGenericCloned`: clone the loop CFG into each stage function, surgically erase non-stage instructions, replace cross-stage uses with queue dequeues, insert enqueues after producers. The "loop control" SCCs (anything the loop's terminators transitively depend on) are replicated to every stage so each thread iterates independently — the queue carries data, not control. A separate hardcoded `transformProcessPipeline` handles the 5-stage `process_pipeline` benchmark; everything else goes through the generic path.
 
-See `docs/plan.md` for the full project plan.
-
 ---
 
 ## Setup
