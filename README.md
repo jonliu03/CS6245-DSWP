@@ -91,46 +91,6 @@ bash scripts/visualize.sh        # reports/<bench>/*.dot → results/figures/ana
 
 ---
 
-## What to expect
-
-| Benchmark | Transform fires? | Output match | Speedup (default 2-stage) |
-|---|---|---|---|
-| `sum_list`           | yes (cloned)  | ✓ | ~0.05× — body is just `load+add`, queue overhead dwarfs the work |
-| `sum_with_compute`   | yes (cloned)  | ✓ | mixed — small wins at moderate n, imbalanced (one heavy stage + one trivial stage) |
-| `max_list`           | yes (cloned)  | ✓ | ~0.05× — same trivial body as sum_list |
-| **`llist_heavy`**    | yes (cloned)  | ✓ | **~1.5× at N=2, scales to ~3.7× at N=5** — see stage sweep below |
-| `histogram`          | yes (cloned)  | ✓ | ~0.02× — `bins[idx]++` is a few cycles per iteration, queue overhead is ~30× higher; honest negative result |
-| `fib_iter`           | no (partition is single-stage by design) | ✓ | ~0.6× — driver still spawns threads but there's nothing to parallelize, so it's slower than `-O3` sequential |
-
-**The clean win is `llist_heavy`**: 5 chained `noinline + const` heavy compute calls per node. The cloned transform partitions them into N stages; one heavy call lands in each stage at N=5. The slowdowns elsewhere are honest — they show DSWP's real cost floor: stage spawn + per-iteration queue ops only pay off when the inner loop is heavier than ~1µs of work.
-
-### Stage sweep (`scripts/run_stage_sweep.sh`)
-
-The cloned transform reads `DSWP_NUM_STAGES` (default 2). The sweep script runs `llist_heavy` at N = 1, 2, 3, 4, 5 and writes:
-
-- `results/stage_sweep.csv` — `stages,n,seq_s,dswp_s,speedup`
-- `results/figures/stage_sweep.png` — speedup vs N + runtime vs N (two panels)
-
-```bash
-bash scripts/run_stage_sweep.sh
-```
-
-Typical result on a 4-core box (n = 1M):
-
-| Stages | DSWP runtime | speedup |
-|---:|---:|---:|
-| 1 (sequential baseline) | 3.14s | 1.00× |
-| 2 | 2.15s | 1.54× |
-| 3 | 1.45s | 2.24× |
-| 4 | 1.46s | 2.21× ← plateau, queue/scheduling overhead at oversubscription edge |
-| 5 | 0.91s | **3.72×** ← partition matches the 5 heavy calls 1:1 |
-
-To run a single N manually: `DSWP_NUM_STAGES=4 bash scripts/run_transform.sh llist_heavy`.
-
-The "outputs match" guarantee is what's important — the pass is correctness-preserving across all six. Speedup depends on whether per-iteration work exceeds queue overhead, which is a real DSWP concern, not a pass bug.
-
----
-
 ## Adding a new benchmark
 
 1. Drop `benchmarks/<name>.c` with a `noinline` hot loop and a `main` that times it (`clock_gettime(CLOCK_MONOTONIC, ...)` and `printf("result = ... (%.4f s, n=%ld)\n", ...)`).
